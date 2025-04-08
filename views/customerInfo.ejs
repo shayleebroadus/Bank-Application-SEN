@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Customer Account</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">      
+        <!---->
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="font/bootstrap-icons.css" />
+        <link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+        <link rel="stylesheet" type="text/css" href="stylesheets/homepage.css"/>
+        
+        <h1>Customer Profile</h1>
+        
+        <script>
+            function checkUser() {
+
+            }
+        </script>
+        <script>
+          function updateInfo(event) {
+
+          }
+        </script>
+    </head>
+<!---->
+    <body>
+      <div id="updates">
+        <form onSubmit="return updateInfo(event)" method="post" id="updatePersonal">
+          <div class="text-center">
+            <input type="hidden" id="profile" name="profile" value="false">
+            <button class="btn btn-primary mt-2" type="submit">
+              Update Personal Information
+            </button>
+          </div>
+        </form>
+
+        <form onsubmit="return updatePass(event)" method="post" id="updatePass">
+          <div class="text-center">
+            <input type="hidden" id="changePass" name="changePass" value="false">
+            <button id="changePassbtn" class="btn btn-primary mt-2" type="submit">
+              Change Password
+            </button>
+          </div>
+        </form>
+      </div>
+      <div id="separate"></div>
+        <!--displays a customers information and their account and its info-->
+        <!--Grid Container-->
+
+        <div id="custGrid1">
+            <!--other info-->
+            <div id="infoSort">
+                <div id="custInfo">
+                    <h3>Name</h3>
+                    <p><%-locals.name%></p>
+                    <h3>Email</h3>
+                    <p><%-locals.email%></p>
+                    <h3>Phone Number</h3>
+                    <p><%-locals.phone%></p>
+                    <h3>Address</h3>
+                    <p><%-locals.address%></p>
+                    <h3>Gender</h3>
+                    <p><%- locals.gender%></p>
+                </div>
+                
+                <div id="sortingCustAcc">
+                    <form method="post">
+                        <div class="p-2">
+            
+                            <div class="input-group mb-3">
+                                <label for="Account">Account: </label>
+                                <select name="Account" id="Account" >
+                                <option value="c" disabled selected></option>
+                                <option value="c">Checking</option>
+                                <option value="s">Saving</option>
+                              </select>
+                            </div>
+                          <div class="text-center">
+                            <button class="btn btn-primary mt-2" type="submit">
+                              Switch Account View
+                            </button>
+                          </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!--table information-->
+            <div id="custData">
+              <div class="rounded d-flex justify-content-center p-2">
+                 <h2><%-locals.total%></h2>
+              </div>
+              <% if(locals.activities.length){%>
+                <table style="padding: 15px;">
+                  <thead>
+                    <tr>
+                      <th colspan="4"><%- locals.currAcc %> - <%-locals.AccID%></th>
+                    </tr>
+                    <tr>
+                        <th style="padding: 15px;">Date</th>
+                        <th style="padding: 15px;">Activity</th>
+                        <th style="padding: 15px;">Amount</th>
+                        <th style="padding: 15px;">Memo</th>
+    
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for(var i =0; i < locals.activities.length; i++){%>
+                    <tr>
+                        <td style="padding: 15px;"><%-locals.activities[i].date%></td>
+                        <td style="padding: 15px;"><%-locals.activities[i].type%></td>
+                        <td style="padding: 15px;"><%-locals.activities[i].amount%></td>
+                        <td style="padding: 15px;"><%-locals.activities[i].memo%></td>
+                    </tr>
+                    <% } %>
+                  </tbody> 
+                </table>
+                <% }else{%>
+                  <p class="text-center">Looks like there is no authorization to view finances at this time</p>
+                <% }%>
+            </div>
+          </div>
+
+        </div>
+    </body>
+</html>

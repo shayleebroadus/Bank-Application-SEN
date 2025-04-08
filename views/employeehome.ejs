@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Account Records</title>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="font/bootstrap-icons.css" />
+        <link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+        <link rel="stylesheet" type="text/css" href="stylesheets/homepage.css"/>
+        <h1>Bank Account Records</h1>
+
+        <script>
+            function filter(event) {
+                document.getElementById("filter").value = true;
+            }
+        </script>
+
+        <script>
+            function SelectAccount(event) {
+                document.getElementById("select").value = true;
+            }
+        </script>
+    </head>
+
+    <body>
+        
+        <!--Grid Container-->
+        <div class="gridContainer">
+            <!--other info-->
+            <!--table information-->
+            <div id="data">
+                <% if(data.length) {%>
+                    <table style="padding: 15px;">
+                        <thead>
+                            <tr>
+                                <th style="padding: 15px;" scope="col">Customer</th>
+                                <th style="padding: 15px;" scope="col">Name</th>
+                                <th style="padding: 15px;" scope="col">Account ID</th>
+                                <th style="padding: 15px;" scope="col">Account Type</th>
+                                <th style="padding: 15px;" scope="col">View account</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(var i=0; i< data.length; i++) { %>
+                                <tr>
+                                    <th scope="row">
+                                        <%- data[i].user %>
+                                    </th>
+                                    <td>
+                                        <%- data[i].name %>
+                                    </td>
+                                    <td>
+                                        <%- data[i].accID %>
+                                    </td>
+                                    <td>
+                                        <%- data[i].acc_type %>
+                                    </td>
+                                    <td>
+                                        <form onsubmit="return selectAccount(event)" method="post">
+                                            <button id="selectbtn" name="selected" value="<%-data[i].user%>">Select</button>
+                                            <input type="hidden" id="select" name="select" value="false">
+                                        </form>
+                                        
+                                    </td>
+                                </tr>
+                                <% } %>
+                        </tbody>
+                    </table>
+                <% } %>
+
+                <% if (!data.length) { %>
+                    <p class="text-center">No available records</p>
+                    <% } %>
+            </div>
+
+        </div>
+    </body>
+</html>

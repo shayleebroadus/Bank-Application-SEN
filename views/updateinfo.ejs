@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Info</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="font/bootstrap-icons.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+
+  <script>
+    function checkUser(event) {
+      const user = document.getElementByID("currUsername").value;
+      if(user==""){
+        document.getElementByID('message').innertext = "Must enter current username";
+        event.preventDefault();
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div class="container-fluid vh-100" style="margin-top:10px">
+    <div class="" style="margin-top:100px">
+      <div class="rounded d-flex justify-content-center">
+        <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light" style="width:50%">
+          <div class="text-center" >
+            <h3 class="text-primary" style="margin-top:50px;">Update Information</h3>
+          </div>
+          <form onSubmit="return checkUser(event);" method="post">
+            <div class="p-2">
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary">
+                  <i class="bi bi-person-plus-fill text-white"></i>
+                </span>
+                <input id="currUsername" name="currUsername" type="text" class="form-control" placeholder="Current Username">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary">
+                  <i class="bi bi-person-plus-fill text-white"></i>
+                </span>
+                <input id="username" name="username" type="text" class="form-control" placeholder="New Username">
+              </div>
+              <!--Name input-->
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary"><i class="bi bi-clipboard-plus text-white"></i></span>
+                <input id="name" type="text" class="form-control" name="name" placeholder="Full Name" required>
+              </div>
+              <!--Email input-->
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary"><i class="bi bi-clipboard-plus text-white"></i></span>
+                <input id="email" type="email" class="form-control" name="email" placeholder="example@gmail.com" required>
+              </div>
+              <!--Address-->
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary"><i class="bi bi-clipboard-plus text-white"></i></span>
+                <input id="address" type="text" class="form-control" name="address" placeholder="123 Center St" required>
+              </div>
+              <!--Phone Number-->
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary"><i class="bi bi-clipboard-plus text-white"></i></span>
+                <input id="phoneNumber" type="tel" class="form-control" name="phone" placeholder="(123) 456-7890" required>
+              </div>
+              <div>
+                <p id="message" class="text-danger" style="height:25px">
+                </p>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-primary mt-2" type="submit">
+                  Update information
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

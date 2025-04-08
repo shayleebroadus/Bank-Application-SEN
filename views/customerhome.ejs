@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Customer Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="font/bootstrap-icons.css" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+  <link rel="stylesheet" type="text/css" href="stylesheets/homepage.css"/>
+  
+  <h1>Welcome Back,</h1>
+  <script>
+    function Switch(event){
+      document.getElementByID("filter").value = true;
+    }
+  </script>
+
+<script>
+  function updatePass(event) {
+    document.getElementById("changePass").value = true;
+  }
+</script>
+
+<script>
+  function viewProfile(event){
+    document.getElementById("profile").value = true;
+
+  }
+</script>
+
+<script>
+  function addActivity(event){
+    document.getElementById("transfer").value = true;
+  }
+</script>
+</head>
+<body>
+
+<div id="updates">
+  <form onSubmit="return viewProfile(event)" method="post" id="updatePersonal">
+    <div class="text-center">
+      <input type="hidden" id="profile" name="profile" value="false">
+      <button class="btn btn-primary mt-2" type="submit">
+        Update Personal Information
+      </button>
+    </div>
+  </form>
+  <form onsubmit="return updatePass(event)" method="post" id="updatePass">
+    <div class="text-center">
+      <input type="hidden" id="changePass" name="changePass" value="false">
+      <button class="btn btn-primary mt-2" type="submit">
+        Change Password
+      </button>
+    </div>
+  </form>
+</div>
+<div id="separate"></div>
+ <!--Grid Container-->
+ <div id="custGrid">
+    <!--sort info-->
+    <div id="sortingAcc">
+        <form onSubmit="return Switch(event);" method="post">
+            <div class="p-2">
+
+                <div class="input-group mb-3">
+                  <span class="input-group-text bg-primary">
+                    <i class="bi bi-funnel-fill"></i>
+                  </span>
+                    <label for="Account" style="padding: 3%; background-color:rgb(255,255,255);">Account: </label>
+                    <select name="Account" id="Account" >
+                    <option value="c" disabled selected></option>
+                    <option value="c">Checking</option>
+                    <option value="s">Saving</option>
+                  </select>
+                </div>
+              <div class="text-center">
+                <input type="hidden" id="filter" name="filter" value="false">
+                <button class="btn btn-primary mt-2" type="submit">
+                  Switch accounts
+                </button>
+              </div>
+            </div>
+        </form>
+        <form onsubmit="return addActivity(event)" method="post" style="padding-top:10%;">
+          <div class="input-group mb-3">
+            <span class="input-group-text bg-primary">
+              <i class="bi bi-arrow-right"></i>
+            </span>
+            <input id="amount" name="amount" type="text" class="form-control" placeholder="Amount">
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text bg-primary">
+              <i class="bi bi-arrow-right"></i>
+            </span>
+            <label for="account" style="padding: 3%; background-color:rgb(255,255,255);">Account </label>
+              <select name="account" id="account" >
+              <option value="" disabled selected></option>
+              <option value="c">Checking</option>
+              <option value="s">Saving</option>
+              </select>
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text bg-primary">
+              <i class="bi bi-arrow-right"></i>
+            </span>
+            <label for="account" style="padding: 3%; background-color:rgb(255,255,255);">Transaction type: </label>
+              <select name="type" id="type" >
+              <option value="" disabled selected></option>
+              <option value="deposit">Deposit</option>
+              <option value="transfer">Transfer</option>
+              </select>
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text bg-primary">
+              <i class="bi bi-arrow-right"></i>
+            </span>
+            <input id="memo" name="memo" type="text" class="form-control" placeholder="Memo">
+          </div>
+
+          <div class="text-center">
+            <input type="hidden" id="transfer" name="transfer" value="false">
+            <button class="btn btn-primary mt-2" type="submit">
+              Transfer
+            </button>
+          </div>
+
+        </form>
+    </div>
+
+    <div>
+        <div id="custData">
+          <div class="rounded d-flex justify-content-center p-2">
+             <h2><%-locals.total%></h2>
+          </div>
+          <% if(locals.activities.length){%>
+            <table style="padding: 15px;">
+              <thead>
+                <tr>
+                  <th colspan="4"><%- locals.currAcc %> - <%-locals.AccID%></th>
+                </tr>
+                <tr>
+                    <th style="padding: 15px;">Date</th>
+                    <th style="padding: 15px;">Activity</th>
+                    <th style="padding: 15px;">Amount</th>
+                    <th style="padding: 15px;">Memo</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <% for(var i =0; i < locals.activities.length; i++){%>
+                <tr>
+                    <td style="padding: 15px;"><%-locals.activities[i].date%></td>
+                    <td style="padding: 15px;"><%-locals.activities[i].type%></td>
+                    <td style="padding: 15px;"><%-locals.activities[i].amount%></td>
+                    <td style="padding: 15px;"><%-locals.activities[i].memo%></td>
+                </tr>
+                <% } %>
+              </tbody> 
+            </table>
+            <% }else{%>
+              <p class="text-center">No transactions yet</p>
+            <% }%>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

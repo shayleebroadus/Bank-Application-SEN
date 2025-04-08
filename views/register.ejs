@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register New Account</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="font/bootstrap-icons.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+
+  <script type="text/javascript" src="crypto-js.js"></script>
+
+  <script>
+    function checkPassword(event) {
+      // // get teh two passwords entered
+      const password1 = document.getElementById("password1").value;
+      const password2 = document.getElementById("password2").value;
+      let passwordValid = false;
+      let message = "";
+      console.log("\n\nRegister check password\n\n\n");
+      if (password1 == ""){
+        message = "Please Enter Password";
+      }
+      else if(password2 ==""){
+        message = "Please Re-enter Password";
+      }
+      else if(password1 != password2){
+        message = "Passwords Did Not Match";
+      }
+      else{passwordValid = true;}
+
+      if(!passwordValid){
+        document.getElementById("message").innerText = message;
+        event.preventDefault();
+      }
+      else{
+        let salt = CryptoJS.lib.WordArray.random(8);
+        document.getElementById("salt").value = salt;
+
+        let hash = CryptoJS.SHA256(password1 + ":" + salt).toString(CryptoJS.enc.Hex);
+        document.getElementById('hash').value = hash;
+
+        console.log("register view: __________\n " + hash+ " | salt: "+ salt);
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div class="container-fluid vh-100" style="margin-top:10px">
+    <div class="" style="margin-top:100px">
+      <div class="rounded d-flex justify-content-center">
+        <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light" style="width:50%">
+          <div class="text-center" >
+            <h3 class="text-primary" style="margin-top:50px;">Register New Account</h3>
+          </div>
+          <form onSubmit="return checkPassword(event);" method="post">
+            <div class="p-2">
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary">
+                  <i class="bi bi-person-plus-fill text-white"></i>
+                </span>
+                <input id="username" name="username" type="text" class="form-control" placeholder="Username">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary"><i class="bi bi-key-fill text-white"></i></span>
+                <input id="password1" name="password1"  type="password" class="form-control" placeholder="Password" required>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary"><i class="bi bi-key-fill text-white"></i></span>
+                <input id="password2" name="password2" type="password" class="form-control" placeholder="Re-enter Password" required>
+              </div>
+              <!--Name input-->
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary"><i class="bi bi-clipboard-plus text-white"></i></span>
+                <input id="name" type="text" class="form-control" name="name" placeholder="Full Name" required>
+              </div>
+              <!--BirthDate-->
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary"><i class="bi bi-clipboard-plus text-white"></i></span>
+                <input id="birthdate" type="date" class="form-control" name="birthdate" style="color:grey" required>
+              </div>
+              <!--Email input-->
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary"><i class="bi bi-clipboard-plus text-white"></i></span>
+                <input id="email" type="email" class="form-control" name="email" placeholder="example@gmail.com" required>
+              </div>
+              <!--Address-->
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary"><i class="bi bi-clipboard-plus text-white"></i></span>
+                <input id="address" type="text" class="form-control" name="address" placeholder="123 Center St" required>
+              </div>
+              <!--Phone Number-->
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary"><i class="bi bi-clipboard-plus text-white"></i></span>
+                <input id="phoneNumber" type="tel" class="form-control" name="phone" placeholder="(123) 456-7890" required>
+              </div>
+              <!--Gender input-->
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary"><i class="bi bi-clipboard-plus text-white"></i></span>
+                  <select name="gender" id="gender" style="width:87%; border:2px ridge; border-radius: 5px; color:grey">
+                    <option value="" disabled selected>Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+              </div>
+              <div>
+                <p id="message" class="text-danger" style="height:25px">
+                  <%- locals.message %>
+                </p>
+              </div>
+              <input type="hidden" id="hash" name="hash">
+              <input type="hidden" id="salt" name="salt">
+              <div class="text-center">
+                <button class="btn btn-primary mt-2" type="submit">
+                  Create Account
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
